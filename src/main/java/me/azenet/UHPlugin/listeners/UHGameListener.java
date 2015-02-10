@@ -203,7 +203,8 @@ public class UHGameListener implements Listener {
 	 */
 	@EventHandler
 	public void onEntityRegainHealth(final EntityRegainHealthEvent ev) {
-		if (ev.getRegainReason() == RegainReason.SATIATED) {
+		if (p.getConfig().getBoolean("gameplay-changes.disableFoodRegeneration")
+		&& ev.getRegainReason() == RegainReason.SATIATED) {
 			ev.setCancelled(true);
 		}
 	}

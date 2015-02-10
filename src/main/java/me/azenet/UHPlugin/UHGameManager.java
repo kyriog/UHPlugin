@@ -49,6 +49,7 @@ public class UHGameManager {
 	private Random random = null;
 	
 	private Boolean damageIsOn = false;
+	private Boolean pvpIsOn = false;
 	private UHScoreboardManager scoreboardManager = null;
 
 	private LinkedList<Location> spawnPoints = new LinkedList<Location>();
@@ -429,6 +430,7 @@ public class UHGameManager {
 	
 	/**
 	 * Enables the damages 30 seconds (600 ticks) later.
+	 * Enables the pvp "death.disablePvpFor" ticks later.
 	 */
 	public void scheduleDamages() {
 		// 30 seconds later, damages are enabled.
@@ -438,6 +440,13 @@ public class UHGameManager {
 				damageIsOn = true;
 			}
 		}, 600L);
+		// "death.disablePvpFor" ticks later, pvp is enabled.
+		Bukkit.getScheduler().runTaskLater(p, new BukkitRunnable() {
+			@Override
+			public void run() {
+				pvpIsOn = true;
+			}
+		}, p.getConfig().getLong("death.disablePvpFor"));
 	}
 	
 	/**
@@ -829,6 +838,16 @@ public class UHGameManager {
 	 */
 	public boolean isTakingDamage() {
 		return damageIsOn;
+	}
+	
+	/**
+	 * Returns true if pvp is enabled.
+	 * Damages are enabled "death.disablePvpFor" ticks after the beginning of the game.
+	 *
+	 * @return
+	 */
+	public boolean isPvpEnabled() {
+		return pvpIsOn;
 	}
 	
 	/**

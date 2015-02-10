@@ -194,6 +194,20 @@ public class UHGameListener implements Listener {
 			}
 		}
 	}
+
+	/**
+	 * Used to disable pvp damages before "death.disablePvpFor" ticks.
+	 *
+	 * @param ev
+	 */
+	@EventHandler
+	public void onEntityDamageByEntity(final EntityDamageByEntityEvent ev) {
+		if (ev.getEntity() instanceof Player && ev.getDamager() instanceof Player) {
+			if (!p.getGameManager().isPvpEnabled()) {
+				ev.setCancelled(true);
+			}
+		}
+	}
 	
 	
 	/**

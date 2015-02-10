@@ -41,6 +41,8 @@ scoreboard:
     health: true
 
 death:
+    disablePvpFor: 600 # In ticks (1 second = 20 ticks)
+
     messages:
         notifyIfTeamHasFallen: true
         deathMessagesFormat: "§6"  # Use this to increase visibility of death messages.
